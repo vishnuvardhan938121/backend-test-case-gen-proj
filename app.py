@@ -4,7 +4,9 @@ import random  # Import random module
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
-
+@app.route('/')
+     def home():
+    return "Welcome to the home page"
 @app.route('/generate/test-cases', methods=['POST'])
 def generate_test_cases():
     data = request.get_json()
