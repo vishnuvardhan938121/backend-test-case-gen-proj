@@ -104,88 +104,6 @@ def counting_sort(arr, exp):
     for i in range(n):
         arr[i] = output[i]
 
-# Searching algorithms
-def linear_search(arr, target):
-    for i, num in enumerate(arr):
-        if num == target:
-            return i
-    return -1
-
-def binary_search(arr, target):
-    low, high = 0, len(arr) - 1
-    while low <= high:
-        mid = (low + high) // 2
-        if arr[mid] == target:
-            return mid
-        elif arr[mid] < target:
-            low = mid + 1
-        else:
-            high = mid - 1
-    return -1
-
-def jump_search(arr, target):
-    n = len(arr)
-    step = int(n ** 0.5)
-    prev = 0
-    while arr[min(step, n) - 1] < target:
-        prev = step
-        step += int(n ** 0.5)
-        if prev >= n:
-            return -1
-    while arr[prev] < target:
-        prev += 1
-        if prev == min(step, n):
-            return -1
-    if arr[prev] == target:
-        return prev
-    return -1
-
-def exponential_search(arr, target):
-    if arr[0] == target:
-        return 0
-    i = 1
-    while i < len(arr) and arr[i] <= target:
-        i = i * 2
-    return binary_search(arr[:min(i, len(arr))], target)
-
-def interpolation_search(arr, target):
-    low, high = 0, len(arr) - 1
-    while low <= high and arr[low] <= target <= arr[high]:
-        pos = low + ((target - arr[low]) * (high - low)) // (arr[high] - arr[low])
-        if arr[pos] == target:
-            return pos
-        elif arr[pos] < target:
-            low = pos + 1
-        else:
-            high = pos - 1
-    return -1
-
-def fibonacci_search(arr, target):
-    n = len(arr)
-    fib_m_minus_2 = 0
-    fib_m_minus_1 = 1
-    fib_m = fib_m_minus_1 + fib_m_minus_2
-    while fib_m < n:
-        fib_m_minus_2 = fib_m_minus_1
-        fib_m_minus_1 = fib_m
-        fib_m = fib_m_minus_1 + fib_m_minus_2
-
-    offset = -1
-    while fib_m > 1:
-        i = min(offset + fib_m_minus_2, n - 1)
-        if arr[i] < target:
-            fib_m = fib_m_minus_1
-            fib_m_minus_1 = fib_m_minus_2
-            fib_m_minus_2 = fib_m - fib_m_minus_1
-            offset = i
-        elif arr[i] > target:
-            fib_m = fib_m_minus_2
-            fib_m_minus_1 = fib_m_minus_1 - fib_m_minus_2
-            fib_m_minus_2 = fib_m - fib_m_minus_1
-        else:
-            return i
-    return -1
-
 # Function to generate test cases
 def generate_test_cases(algo_type, algo_name):
     test_cases = []
@@ -193,13 +111,12 @@ def generate_test_cases(algo_type, algo_name):
     for _ in range(20):  # Generate 20 test cases
         arr_length = random.randint(5, 10)
         arr = random.sample(range(1, 100), arr_length)
-        target = random.choice(arr)
-
+        
         test_case = {
             "input": arr,
         }
 
-        # Generate test case for specific algorithm
+        # Generate test case for sorting algorithms
         if algo_type == "sorting":
             if algo_name == "bubble_sort":
                 test_case["expected_output"] = bubble_sort(arr.copy())
@@ -217,20 +134,6 @@ def generate_test_cases(algo_type, algo_name):
                 test_case["expected_output"] = counting_sort(arr.copy())
             elif algo_name == "radix_sort":
                 test_case["expected_output"] = radix_sort(arr.copy())
-        elif algo_type == "searching":
-            arr_sorted = sorted(arr)
-            if algo_name == "linear_search":
-                test_case["expected_output"] = linear_search(arr_sorted, target)
-            elif algo_name == "binary_search":
-                test_case["expected_output"] = binary_search(arr_sorted, target)
-            elif algo_name == "jump_search":
-                test_case["expected_output"] = jump_search(arr_sorted, target)
-            elif algo_name == "exponential_search":
-                test_case["expected_output"] = exponential_search(arr_sorted, target)
-            elif algo_name == "interpolation_search":
-                test_case["expected_output"] = interpolation_search(arr_sorted, target)
-            elif algo_name == "fibonacci_search":
-                test_case["expected_output"] = fibonacci_search(arr_sorted, target)
 
         test_cases.append(test_case)
 
