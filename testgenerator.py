@@ -118,29 +118,23 @@ def generate_test_cases(algo_type, algo_name):
 
         # Generate test case for sorting algorithms
         if algo_type == "sorting":
-            if algo_name == "bubble_sort":
+            if algo_name == "Bubble Sort":
                 test_case["expected_output"] = bubble_sort(arr.copy())
-            elif algo_name == "selection_sort":
+            elif algo_name == "Selection Sort":
                 test_case["expected_output"] = selection_sort(arr.copy())
-            elif algo_name == "insertion_sort":
+            elif algo_name == "Insertion Sort":
                 test_case["expected_output"] = insertion_sort(arr.copy())
-            elif algo_name == "merge_sort":
+            elif algo_name == "Merge Sort":
                 test_case["expected_output"] = merge_sort(arr.copy())
-            elif algo_name == "quick_sort":
+            elif algo_name == "Quick Sort":
                 test_case["expected_output"] = quick_sort(arr.copy())
-            elif algo_name == "heap_sort":
+            elif algo_name == "Heap Sort":
                 test_case["expected_output"] = heap_sort(arr.copy())
-            elif algo_name == "counting_sort":
+            elif algo_name == "Counting Sort":
                 test_case["expected_output"] = counting_sort(arr.copy())
-            elif algo_name == "radix_sort":
+            elif algo_name == "Radix Sort":
                 test_case["expected_output"] = radix_sort(arr.copy())
 
         test_cases.append(test_case)
 
     return test_cases
-
-
-# Example usage:
-test_cases = generate_test_cases("sorting", "bubble_sort")
-for case in test_cases:
-    print(f"Input: {case['input']}, Expected Output: {case['expected_output']}")
